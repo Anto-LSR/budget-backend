@@ -7,6 +7,7 @@ export enum ExpenseType {
   ONCE = 'once',
   SUBSCRIPTION = 'subscription',
   INSTALLMENT = 'installment',
+  NEGATIVE = 'negative',
 }
 
 @Entity()

@@ -61,6 +61,8 @@ export class ExpenseService {
             whereConditions.dateCreate = Between(startDate, endDate); // Utilisation de Between de TypeORM
         }
 
+
+
         return await this.expenseRepository.find({
             where: whereConditions,
         });
@@ -83,9 +85,11 @@ export class ExpenseService {
             where: {
                 userId: Number(userId),
                 type: Not(ExpenseType.ONCE), // Exclure les dépenses de type ONCE
+                isPaused: false, // Exclure les dépenses mises en pause
             },
             relations: ['categoryEntity'],
         });
+
 
         // Récupérer uniquement les dépenses de type ONCE pour le mois en cours
         const monthlyOnceExpenses = await this.expenseRepository.find({
