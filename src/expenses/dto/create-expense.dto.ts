@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEnum, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsEnum, IsNumber, IsString, IsOptional, IsDate, IsBoolean } from 'class-validator';
 import { ExpenseType } from '../expense.entity';
 
 export class CreateExpenseDto {
@@ -21,4 +21,8 @@ export class CreateExpenseDto {
   @IsOptional()
   @IsString()
   date?: Date; // Date de la dépense (optionnelle)
+
+  @IsOptional()
+  @IsDate()
+  dateEnd?: Date;
 }

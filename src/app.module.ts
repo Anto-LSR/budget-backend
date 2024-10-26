@@ -10,6 +10,10 @@ import { ExpenseModule } from './expenses/expenses.module';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesModule } from './categories/categories.module';
 import { Category } from './categories/category.entity';
+import { IncomesController } from './incomes/incomes.controller';
+import { IncomesService } from './incomes/incomes.service';
+import { IncomesModule } from './incomes/incomes.module';
+import { Income } from './incomes/income.entity';
 
 @Module({
   imports: [
@@ -17,6 +21,7 @@ import { Category } from './categories/category.entity';
     AuthModule,
     ExpenseModule,
     CategoriesModule,
+    IncomesModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -24,7 +29,7 @@ import { Category } from './categories/category.entity';
       username: 'root',
       password: 'root',
       database: 'budget',  // Remplace par le nom de ta base de données MySQL
-      entities: [User, Expense, Category], // Référence tes entités ici
+      entities: [User, Expense, Category, Income], // Référence tes entités ici
       synchronize: true, // Utilisé pour synchroniser automatiquement l'entité avec la base de données. Désactive-le en production !
     }),
   ],
