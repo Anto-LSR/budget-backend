@@ -60,7 +60,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard) // Protéger cette route avec le guard
   @Post('protected-route') // Exemple de route protégée
-  getProtectedData() {
+  getProtectedData() { 
     return { message: 'Vous avez accès à ces données protégées !' };
   }
 }

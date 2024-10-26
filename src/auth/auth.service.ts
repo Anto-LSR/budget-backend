@@ -5,10 +5,16 @@ import { UserService } from '../users/users.service'; // Assure-toi que le chemi
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto';
+import { User } from '../users/user.entity';
+
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
@@ -35,5 +41,15 @@ export class AuthService {
 
     const payload = { email: user.email, sub: user.id };
     return this.jwtService.sign(payload); // Retourner uniquement le token
+  }
+
+  async getUserFromToken(token: string): Promise<User | null> {
+    try {
+      const payload = this.jwtService.verify(token);
+      // Récupérer l'utilisateur de votre base de données en fonction de l'ID dans le payload
+      return await this.userRepository.findOne(payload.sub); // ou une méthode appropriée pour récupérer l'utilisateur
+    } catch (error) {
+      return null; // Si le token est invalide, retourner null
+    }
   }
 }
